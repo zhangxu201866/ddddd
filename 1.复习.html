@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+
+</html>
+<script>
+    /* function LazyMan(name){
+    console.log(`Hi! this is ${name}`)
+    }
+    LazyMan('Hank') */
+    function Man(name) {
+        this.ary = [];
+        let that = this;
+        function say() {
+            console.log(`HI , this is ${name}`)
+            that.next();
+        }
+        this.ary.push(say);
+        //this.next();
+        setTimeout(() => {
+            this.next()
+        }, 0)
+    };
+    Man.prototype.next = function () {
+        let fn = this.ary.shift();
+        fn && fn();
+    }
+    Man.prototype.sleep = function (n) {
+        let that=this;
+        function fn() {
+            setTimeout(() => {
+                console.log(`Wake Up after ${n} s`)
+                    that.next();
+            }, n * 1000);
+        
+        }
+        this.ary.push(fn);
+        return this;
+    };
+    Man.prototype.sleepFirst=function(n){
+        let that=this;
+        function fn() {
+            setTimeout(() => {
+                console.log(`Wake Up after ${n} s`)
+                    that.next();
+            }, n * 1000);
+        
+        }
+        this.ary.unshift(fn);
+        return this;
+    }
+    Man.prototype.eat = function (str) {
+        let that = this;
+        function fn() {
+            console.log(`Eat ${str} ~`);
+            that.next();
+        }
+        this.ary.push(fn)
+        return this;
+    };
+    function LazyMan(name) {
+        return new Man(name)
+    }
+    LazyMan('Hank').sleep(2).eat('dinner').eat('supper').sleepFirst(3);
+</script>

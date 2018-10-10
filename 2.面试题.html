@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+
+</html>
+<script>
+    //使用递归拿到里面所有的name
+    let obj = {
+        a: {
+            name: "我是a",
+            age: 5,
+            b: {
+                name: "我是a中的b",
+                age: 2,
+                c: {
+                    name: "我是a中的c",
+                    sex: 0,
+                    b: {
+                        name: "我是a中的d"
+                    }
+                }
+            }
+        },
+        b: {
+            c: {
+                d: {
+                    name: "我是b中的d",
+                    age: 10
+                }
+            }
+        }
+    }
+
+
+    //let obj2 = JSON.parse(JSON.stringify(obj));
+    let arr = [];
+    function getName(obj) {
+        if(typeof obj!=='object') return;//使用递归 需要把边界处理好，只要看传进来的参数是不是对象；不是对象；直接return;
+        for (let key in obj) {
+            if (key == 'name') {
+                arr.push(obj[key])
+            }else{
+                getName(obj[key])
+            }
+        }
+    }
+    getName(obj)
+    console.log(arr)
+//ary=>['我是a',"我是a中的b"]
+
+</script>
